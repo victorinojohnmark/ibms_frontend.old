@@ -1,6 +1,6 @@
 <template>
-    <nav class="bg-white border-b border-gray-200 fixed z-30 h-15 w-full">
-        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+    <nav class="flex items-center bg-white border-b border-gray-200 fixed z-30 h-16 w-full">
+        <div class="w-full px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
                     <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
