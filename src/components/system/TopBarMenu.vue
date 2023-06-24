@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-white border-b border-gray-200 fixed z-30 h-14 w-full">
+    <nav class="bg-white border-b border-gray-200 fixed z-30 h-15 w-full">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
@@ -40,36 +40,18 @@
                         </div>
                     </form> -->
                 </div>
-                <div class="flex items-center">
-                    <!-- <button id="toggleSidebarMobileSearch" type="button"
-                        class="lg:hidden text-gray-500 hover:text-gray-900 hover:bg-gray-100 p-2 rounded-lg">
-                        <span class="sr-only">Search</span>
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                clip-rule="evenodd"></path>
+                <div class="flex items-center justify-items-center">
+                    <button class="flex flex-row items-center gap-x-2 text-right text-gray-600 hover:text-gray-700 hover:cursor-pointer" @click="showUserMenu = !showUserMenu" @focusout="showUserMenu = !showUserMenu">
+                        <p class="text-sm">John Mark Victorino</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
+                            <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
                         </svg>
+
+                        <ul class="absolute z-50 top-3 lg:top-0 right-4 bg-white border border-gray-200 rounded-md shadow-sm py-2 mt-12" v-if="showUserMenu">
+                            <li><a href="#" class="w-full text-sm text-gray-600 px-4 py-2 hover:bg-gray-200">Logout</a></li>
+                        </ul>
                     </button>
-                    <div class="hidden lg:flex items-center">
-                        <span class="text-base font-normal text-gray-500 mr-5">Open source ❤️</span>
-                        <div class="-mb-1">
-                            <a class="github-button" href="#"
-                                data-color-scheme="no-preference: dark; light: light; dark: light;"
-                                data-icon="octicon-star" data-size="large" data-show-count="true"
-                                aria-label="Star themesberg/windster-tailwind-css-dashboard on GitHub">Star</a>
-                        </div>
-                    </div>
-                    <a href="#"
-                        class="hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
-                        <svg class="svg-inline--fa fa-gem -ml-1 mr-2 h-4 w-4" aria-hidden="true" focusable="false"
-                            data-prefix="fas" data-icon="gem" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M378.7 32H133.3L256 182.7L378.7 32zM512 192l-107.4-141.3L289.6 192H512zM107.4 50.67L0 192h222.4L107.4 50.67zM244.3 474.9C247.3 478.2 251.6 480 256 480s8.653-1.828 11.67-5.062L510.6 224H1.365L244.3 474.9z">
-                            </path>
-                        </svg>
-                        Upgrade to Pro
-                    </a> -->
+
                 </div>
             </div>
         </div>
@@ -77,5 +59,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 
+const showUserMenu = ref(false);
 </script>
