@@ -3,26 +3,26 @@
         <div class="w-full px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
-                    <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
+                    <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" @click="useNavigation.toggleSideBarMenu()"
                         class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
-                        <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                        <svg v-if="!useNavigation.sideBarMenuVisibility" id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <svg id="toggleSidebarMobileClose" class="w-6 h-6 hidden" fill="currentColor"
+                        <svg v-else id="toggleSidebarMobileClose" class="w-6 h-6" fill="currentColor"
                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                 clip-rule="evenodd"></path>
                         </svg>
                     </button>
-                    <a href="#" class="text-xl font-bold flex items-center lg:ml-2.5">
+                    <RouterLink :to="{ name: 'Home' }" class="text-xl font-bold flex items-center lg:ml-2.5">
                         <img src="/icon-leaf.png" class="h-6 mr-2"
                             alt="Windster Logo">
                         <span class="self-center whitespace-nowrap">IBMS</span>
-                    </a>
+                    </RouterLink>
                     <!-- <form action="#" method="GET" class="hidden lg:block lg:pl-32">
                         <label for="topbar-search" class="sr-only">Search</label>
                         <div class="mt-1 relative lg:w-64">
@@ -40,17 +40,25 @@
                         </div>
                     </form> -->
                 </div>
-                <div class="flex items-center justify-items-center">
-                    <button class="flex flex-row items-center gap-x-2 text-right text-gray-600 hover:text-gray-700 hover:cursor-pointer" @click="showUserMenu = !showUserMenu" @focusout="showUserMenu = !showUserMenu">
-                        <p class="text-sm">John Mark Victorino</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                            <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
-                        </svg>
+                <div class="flex gap-x-2 items-center justify-items-center">
+                    <button class="text-gray-600 hover:text-green-600 hover:cursor-pointer">
+                        <BellIcon class="w-6 h-6" />
+                    </button>
 
+                    <button class="text-gray-600 hover:text-green-600 hover:cursor-pointer">
+                        <MoonIcon class="w-6 h-6" />
+                    </button>
+
+                    <button class="flex flex-row items-center gap-x-2 text-right text-gray-600 hover:text-green-600 hover:cursor-pointer group" @click="showUserMenu = !showUserMenu" @focusout="showUserMenu = false">
+                        <p class="text-sm lg:inline group-hover:text-gray-700 hidden">John Mark Victorino</p>
+                        <UserCircleIcon class="w-7 h-7" />
                         <ul class="absolute z-50 top-3 lg:top-0 right-4 bg-white border border-gray-200 rounded-md shadow-sm py-2 mt-12" v-if="showUserMenu">
                             <li><a href="#" class="w-full text-sm text-gray-600 px-4 py-2 hover:bg-gray-200">Logout</a></li>
                         </ul>
                     </button>
+
+                    
+                    
 
                 </div>
             </div>
@@ -59,7 +67,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { SunIcon, MoonIcon, BellIcon, UserCircleIcon } from '@heroicons/vue/24/solid';
+import { useNavigationStore } from '../../stores/navigation'
+import { onMounted, ref } from 'vue';
 
+const useNavigation = useNavigationStore()
 const showUserMenu = ref(false);
+onMounted(() => {
+    useNavigation.hideSideBarMenu()
+})
+
 </script>
