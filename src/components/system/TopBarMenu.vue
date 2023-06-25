@@ -40,7 +40,7 @@
                         </div>
                     </form> -->
                 </div>
-                <div class="flex gap-x-2 items-center justify-items-center">
+                <div class="flex gap-x-2 items-center justify-items-center" v-if="authStore.user">
                     <button class="text-gray-600 hover:text-green-600 hover:cursor-pointer">
                         <BellIcon class="w-6 h-6" />
                     </button>
@@ -70,6 +70,9 @@
 import { SunIcon, MoonIcon, BellIcon, UserCircleIcon } from '@heroicons/vue/24/solid';
 import { useNavigationStore } from '../../stores/navigation'
 import { onMounted, ref } from 'vue';
+import { useAuthStore } from '../../stores/auth'
+
+const authStore = useAuthStore()
 
 const useNavigation = useNavigationStore()
 const showUserMenu = ref(false);
