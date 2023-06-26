@@ -3,7 +3,7 @@
         <div class="w-full px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
-                    <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" @click="useNavigation.toggleSideBarMenu()"
+                    <button v-if="authStore.authUser" id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" @click="useNavigation.toggleSideBarMenu()"
                         class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
                         <svg v-if="!useNavigation.sideBarMenuVisibility" id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">

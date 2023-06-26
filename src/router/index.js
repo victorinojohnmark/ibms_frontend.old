@@ -32,11 +32,16 @@ router.beforeEach(async (to, from, next) => {
 
   useNavigation.hideSideBarMenu()
   
+  authStore.resetErrorAndStatus()
+
   if(to.meta.requiresAuth && !authStore.user) {
-    next({ path: '/login', query: { redirect: to.fullPath } });
+    next({ path: '/login', query: { auth: 'false' } });
   } else {
+    authStore.getUser()
     next ()
   }
+
+
 })
 
 

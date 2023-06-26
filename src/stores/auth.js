@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import router from "../router";
 
 export const useAuthStore = defineStore('auth', {
     persist: true,
@@ -14,9 +15,6 @@ export const useAuthStore = defineStore('auth', {
         status: (state) => state.authStatus
     },
     actions: {
-        initiate() {
-            
-        },
         async getToken() {
             await axios.get('/sanctum/csrf-cookie')
         },
@@ -34,7 +32,7 @@ export const useAuthStore = defineStore('auth', {
                     email: data.email,
                     password: data.password
                 })
-                this.router.push("/")
+                router.push("/")
             } catch (error) {
                 if(error.response.status === 422) {
                     this.authErrors = error.response.data.errors
@@ -52,7 +50,7 @@ export const useAuthStore = defineStore('auth', {
                     password_confirmation: data.password_confirmation
                 })
                 
-                this.router.push("/")
+                router.push("/")
             } catch (error) {
                 if(error.response.status === 422) {
                     this.authErrors = error.response.data.errors
@@ -85,7 +83,7 @@ export const useAuthStore = defineStore('auth', {
 
             try {
                 const response = await axios.post('/reset-password', resetData);
-                // this.router.push("/");
+                // router.push("/");
 
                 this.authStatus = response.data.status
             } catch (error) {
@@ -95,8 +93,8 @@ export const useAuthStore = defineStore('auth', {
             }
         },
         resetErrorAndStatus() {
-            this.errors = null;
-            this.status = null;
+            this.authErrors = null;
+            this.authStatus = null;
         }
 
 
