@@ -13,7 +13,7 @@ const loginData = ref({
 </script>
 
 <template>
-    <div class="flex lg:flex-row flex-col-reverse">
+    <div class="container flex lg:flex-row flex-col-reverse lg:mt-12">
         <div id="background-image" class="flex items-center justify-center lg:justify-end w-full lg:w-1/2">
             <img src="../../assets/img/stats_illustration.svg" class="w-1/2" alt="">
         </div>
