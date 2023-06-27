@@ -3,7 +3,7 @@
         <div class="w-full px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start">
-                    <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" @click="useNavigation.toggleSideBarMenu()"
+                    <button v-if="authStore.user" id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" @click="useNavigation.toggleSideBarMenu()"
                         class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
                         <svg v-if="!useNavigation.sideBarMenuVisibility" id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -49,13 +49,13 @@
                         <MoonIcon class="w-6 h-6" />
                     </button>
 
-                    <button class="flex flex-row items-center gap-x-2 text-right text-gray-600 hover:text-green-600 hover:cursor-pointer group" @click="showUserMenu = !showUserMenu" @focusout="showUserMenu = false">
+                    <div v-if="authStore.user" class="flex flex-row items-center gap-x-2 text-right text-gray-600 hover:text-green-600 hover:cursor-pointer group" @click="showUserMenu = !showUserMenu" @focusout="showUserMenu = false">
                         <p class="text-sm lg:inline group-hover:text-gray-700 hidden">John Mark Victorino</p>
                         <UserCircleIcon class="w-7 h-7" />
                         <ul class="absolute z-50 top-3 lg:top-0 right-4 bg-white border border-gray-200 rounded-md shadow-sm py-2 mt-12" v-if="showUserMenu">
-                            <li><a href="#" class="w-full text-sm text-gray-600 px-4 py-2 hover:bg-gray-200">Logout</a></li>
+                            <li><button @click="authStore.handleLogout()" class="w-full text-sm text-gray-600 px-4 py-2 hover:bg-gray-200 cursor-pointer">Logout</button></li>
                         </ul>
-                    </button>
+                    </div>
 
                     
                     
@@ -71,6 +71,9 @@ import { SunIcon, MoonIcon, BellIcon, UserCircleIcon } from '@heroicons/vue/24/s
 import { useNavigationStore } from '../../stores/navigation'
 import { onMounted, ref } from 'vue';
 
+import { useAuthStore } from '../../stores/auth';
+
+const authStore = useAuthStore()
 const useNavigation = useNavigationStore()
 const showUserMenu = ref(false);
 onMounted(() => {
