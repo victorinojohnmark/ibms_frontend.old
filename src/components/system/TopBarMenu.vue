@@ -52,7 +52,7 @@
                     <div v-if="authStore.user" class="flex flex-row items-center gap-x-2 text-right text-gray-600 hover:text-green-600 hover:cursor-pointer group" @click="showUserMenu = !showUserMenu" @focusout="showUserMenu = false">
                         <p class="text-sm lg:inline group-hover:text-gray-700 hidden">John Mark Victorino</p>
                         <UserCircleIcon class="w-7 h-7" />
-                        <ul class="absolute z-50 top-3 lg:top-0 right-4 bg-white border border-gray-200 rounded-md shadow-sm py-2 mt-12" v-if="showUserMenu">
+                        <ul class="absolute z-50 top-3 lg:top-0 right-4 bg-white border border-gray-200 rounded-md shadow-sm py-2 mt-12" v-if="showUserMenu" @mouseleave="showUserMenu = false">
                             <li><button @click="authStore.handleLogout()" class="w-full text-sm text-gray-600 px-4 py-2 hover:bg-gray-200 cursor-pointer">Logout</button></li>
                         </ul>
                     </div>
