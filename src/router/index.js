@@ -26,23 +26,24 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach(async (to, from, next) => {
-  const useNavigation = useNavigationStore()
-  const authStore = useAuthStore()
+// router.beforeEach(async (to, from, next) => {
+//   const useNavigation = useNavigationStore()
+//   // const authStore = useAuthStore()
 
-  useNavigation.hideSideBarMenu()
+//   useNavigation.hideSideBarMenu()
   
-  authStore.resetErrorAndStatus()
+//   // authStore.resetErrorAndStatus()
 
-  if(to.meta.requiresAuth && !authStore.user) {
-    next({ path: '/login', query: { auth: 'false' } });
-  } else {
-    authStore.getUser()
-    next ()
-  }
+//   // if(to.meta.requiresAuth && !authStore.user) {
+//   //   next({ path: '/login', query: { auth: 'false' } });
+//   // } else {
+//   //   authStore.getUser()
+//   //   next ()
+//   // }
 
 
-})
+
+// })
 
 
 export default router

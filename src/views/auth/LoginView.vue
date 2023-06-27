@@ -1,9 +1,7 @@
 <script setup>
 import { ArrowLongRightIcon, LockOpenIcon } from '@heroicons/vue/24/outline';
-import { useAuthStore } from '../../stores/auth'
 import { ref } from 'vue';
 
-const authStore = useAuthStore()
 
 const loginData = ref({
     email: '',
@@ -14,7 +12,7 @@ const loginData = ref({
 
 <template>
     <div class="container flex lg:flex-row flex-col-reverse lg:mt-12">
-        <div id="background-image" class="flex items-center justify-center lg:justify-end w-full lg:w-1/2">
+        <div id="background-image" class="flex items-center justify-center w-full lg:w-1/2">
             <img src="../../assets/img/stats_illustration.svg" class="w-1/2" alt="">
         </div>
         <div class="flex flex-col justify-center sm:py-12 w-full lg:w-1/2">
@@ -25,18 +23,18 @@ const loginData = ref({
                 </h1>
                 <div class="bg-white shadow-lg w-full rounded divide-y divide-gray-200">
                     <div class="px-5 py-7">
-                        <form action="#" method="POST" @submit.prevent="authStore.handleLogin(loginData)">
+                        <form action="#" method="POST" @submit.prevent="">
                             <div class="mb-5">
                                 <label class="font-semibold text-sm text-gray-600 pb-1 block">E-mail</label>
                                 <input type="email" v-model="loginData.email" class="border rounded py-2 px-3 mt-1 text-sm w-full" autocomplete="false"/>
-                                <p v-if="authStore.errors && authStore.errors.email" class="mt-2 text-xs font-semibold text-red-400">{{ authStore.errors.email[0] }}</p>
+                                <!-- <p v-if="authStore.errors && authStore.errors.email" class="mt-2 text-xs font-semibold text-red-400">{{ authStore.errors.email[0] }}</p> -->
 
                             </div>
 
                             <div class="mb-5">
                                 <label class="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
                                 <input type="password" v-model="loginData.password" class="border rounded py-2 mt-1 px-3 text-sm w-full" autocomplete="false"/>
-                                <p v-if="authStore.errors && authStore.errors.password" class="mt-2 text-xs font-semibold text-red-400">{{ authStore.errors.password[0] }}</p>
+                                <!-- <p v-if="authStore.errors && authStore.errors.password" class="mt-2 text-xs font-semibold text-red-400">{{ authStore.errors.password[0] }}</p> -->
                             </div>
 
                             <button type="submit" class="transition duration-200 bg-green-500 hover:bg-green-600 focus:bg-green-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">

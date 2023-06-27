@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full text-sm font-normal rounded-lg hover:bg-gray-100 flex flex-col items-center justify-start p-3 group cursor-pointer" @click="toggleDropdown" @mouseleave="isOpen = false">
+    <div class="w-full text-sm font-normal rounded-lg hover:bg-gray-100 flex flex-col items-center justify-start p-3 group cursor-pointer" @click="toggleDropdown" @mouseleave="isOpen = false" role="button">
 
         <button class="flex w-full items-center text-left text-gray-500 group-hover:text-gray-700 font-semibold">
             <slot name="icon"></slot>
