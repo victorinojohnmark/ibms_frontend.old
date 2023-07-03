@@ -31,8 +31,9 @@ import TopBarMenu from './components/system/TopBarMenu.vue'
 import SideBarMenu from './components/system/SideBarMenu.vue'
 
 import { useAuthStore } from './stores/auth';
+import { onMounted } from 'vue';
 
 const authStore = useAuthStore()
-authStore.initialize()
+  authStore.initialize()
 
 </script>

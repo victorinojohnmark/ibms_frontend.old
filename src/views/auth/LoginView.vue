@@ -43,6 +43,7 @@ const loginData = ref({
                                 <span class="inline-block mr-2">Login</span>
                                 <ArrowLongRightIcon class="w-4 h-4 inline-block" />
                             </button>
+
                         </form>
                     </div>
                     <div class="py-5">
