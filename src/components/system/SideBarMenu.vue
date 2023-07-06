@@ -27,7 +27,7 @@
 
 <script setup>
 import { ClipboardDocumentIcon, ClipboardDocumentCheckIcon, BanknotesIcon, CreditCardIcon, PaperClipIcon, UserGroupIcon, SquaresPlusIcon, MegaphoneIcon, TruckIcon, BriefcaseIcon, RectangleGroupIcon, ExclamationTriangleIcon, TableCellsIcon, PuzzlePieceIcon, QueueListIcon, HandThumbUpIcon, UsersIcon, CommandLineIcon, CircleStackIcon, BuildingOffice2Icon, ChatBubbleLeftRightIcon, SwatchIcon } from '@heroicons/vue/24/outline'
-import { ShoppingCartIcon, CurrencyDollarIcon, HomeModernIcon, MapPinIcon, BuildingStorefrontIcon, KeyIcon, ClipboardDocumentListIcon, DocumentTextIcon, CubeIcon, RocketLaunchIcon, Square3Stack3DIcon, Cog8ToothIcon, FingerPrintIcon } from '@heroicons/vue/24/solid'
+import { ShoppingCartIcon, CurrencyDollarIcon, HomeModernIcon, MapPinIcon, BuildingStorefrontIcon, KeyIcon, ClipboardDocumentListIcon, DocumentTextIcon, CubeIcon, RocketLaunchIcon, Square3Stack3DIcon, Cog8ToothIcon, FingerPrintIcon, BookOpenIcon, ListBulletIcon } from '@heroicons/vue/24/solid'
 import { useNavigationStore } from '../../stores/navigation'
 import { onMounted } from 'vue';
 
@@ -43,142 +43,156 @@ onMounted(() => {
 
 
 const menus = [
-   [{
-         name: 'Location',
-         icon: MapPinIcon,
+   [
+      
+      {
+         name: 'Chart of Accounts',
+         icon: ListBulletIcon,
+         routeName: 'Chart of Accounts'
+      },
+      {
+         name: 'Journal Entry',
+         icon: ClipboardDocumentListIcon,
          routeName: 'Home'
-      },
-      {
-         name: 'Housing Units',
-         icon: HomeModernIcon,
-         routeName: 'Home'
-      },
-      {
-         name: 'Marketing',
-         icon: KeyIcon,
-         submenu: [{
-               name: 'Broker',
-               icon: ChatBubbleLeftRightIcon,
-               routeName: 'Home'
-            },
-            {
-               name: 'Commissions',
-               icon: MegaphoneIcon,
-               routeName: 'Dashboard'
-            },
-
-         ]
-      },
-      {
-         name: 'Credit & Collection',
-         icon: CurrencyDollarIcon,
-         submenu: [{
-               name: 'Payment',
-               icon: BanknotesIcon,
-               routeName: 'Home'
-            },
-            {
-               name: 'Loan Takeouts',
-               icon: CreditCardIcon,
-               routeName: 'Dashboard'
-            },
-
-         ]
-      },
-      {
-         name: 'Contracts',
-         icon: DocumentTextIcon,
-         submenu: [{
-               name: 'Clients',
-               icon: UserGroupIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Accounts',
-               icon: PaperClipIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Documentations',
-               icon: ClipboardDocumentListIcon,
-               routeName: 'Dashboard'
-            },
-
-         ]
-      },
-      {
-         name: 'Purchasing',
-         icon: ShoppingCartIcon,
-         submenu: [{
-               name: 'Suppliers',
-               icon: BuildingStorefrontIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Purchase Request',
-               icon: ClipboardDocumentIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Purchase Order',
-               icon: ClipboardDocumentCheckIcon,
-               routeName: 'Dashboard'
-            },
-
-         ]
-      },
-      {
-         name: 'Warehouse',
-         icon: CubeIcon,
-         submenu: [{
-               name: 'Materials/Items',
-               icon: SquaresPlusIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Deliveries',
-               icon: TruckIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Releases',
-               icon: RectangleGroupIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Incident Report',
-               icon: ExclamationTriangleIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Item to Warehouse',
-               icon: SwatchIcon,
-               routeName: 'Dashboard'
-            },
-
-
-         ]
-      },
-      {
-         name: 'Construction',
-         icon: RocketLaunchIcon,
-         submenu: [{
-               name: 'Contractors',
-               icon: BriefcaseIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'Bill of Materials',
-               icon: TableCellsIcon,
-               routeName: 'Dashboard'
-            },
-            {
-               name: 'House Construction',
-               icon: PuzzlePieceIcon,
-               routeName: 'Dashboard'
-            }
-         ]
       }
+         
+      
+      // {
+      //    name: 'Location',
+      //    icon: MapPinIcon,
+      //    routeName: 'Home'
+      // },
+      // {
+      //    name: 'Housing Units',
+      //    icon: HomeModernIcon,
+      //    routeName: 'Home'
+      // },
+      // {
+      //    name: 'Marketing',
+      //    icon: KeyIcon,
+      //    submenu: [{
+      //          name: 'Broker',
+      //          icon: ChatBubbleLeftRightIcon,
+      //          routeName: 'Home'
+      //       },
+      //       {
+      //          name: 'Commissions',
+      //          icon: MegaphoneIcon,
+      //          routeName: 'Dashboard'
+      //       },
+
+      //    ]
+      // },
+      // {
+      //    name: 'Credit & Collection',
+      //    icon: CurrencyDollarIcon,
+      //    submenu: [{
+      //          name: 'Payment',
+      //          icon: BanknotesIcon,
+      //          routeName: 'Home'
+      //       },
+      //       {
+      //          name: 'Loan Takeouts',
+      //          icon: CreditCardIcon,
+      //          routeName: 'Dashboard'
+      //       },
+
+      //    ]
+      // },
+      // {
+      //    name: 'Contracts',
+      //    icon: DocumentTextIcon,
+      //    submenu: [{
+      //          name: 'Clients',
+      //          icon: UserGroupIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Accounts',
+      //          icon: PaperClipIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Documentations',
+      //          icon: ClipboardDocumentListIcon,
+      //          routeName: 'Dashboard'
+      //       },
+
+      //    ]
+      // },
+      // {
+      //    name: 'Purchasing',
+      //    icon: ShoppingCartIcon,
+      //    submenu: [{
+      //          name: 'Suppliers',
+      //          icon: BuildingStorefrontIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Purchase Request',
+      //          icon: ClipboardDocumentIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Purchase Order',
+      //          icon: ClipboardDocumentCheckIcon,
+      //          routeName: 'Dashboard'
+      //       },
+
+      //    ]
+      // },
+      // {
+      //    name: 'Warehouse',
+      //    icon: CubeIcon,
+      //    submenu: [{
+      //          name: 'Materials/Items',
+      //          icon: SquaresPlusIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Deliveries',
+      //          icon: TruckIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Releases',
+      //          icon: RectangleGroupIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Incident Report',
+      //          icon: ExclamationTriangleIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Item to Warehouse',
+      //          icon: SwatchIcon,
+      //          routeName: 'Dashboard'
+      //       },
+
+
+      //    ]
+      // },
+      // {
+      //    name: 'Construction',
+      //    icon: RocketLaunchIcon,
+      //    submenu: [{
+      //          name: 'Contractors',
+      //          icon: BriefcaseIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'Bill of Materials',
+      //          icon: TableCellsIcon,
+      //          routeName: 'Dashboard'
+      //       },
+      //       {
+      //          name: 'House Construction',
+      //          icon: PuzzlePieceIcon,
+      //          routeName: 'Dashboard'
+      //       }
+      //    ]
+      // }
    ],
    [{
       name: 'Reports',

@@ -10,3 +10,14 @@ body {
 .Vue-Toastification__container {
     margin-top: 63px;
 }
+
+table {
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}

@@ -22,6 +22,12 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/auth/LoginView.vue'),
       meta: { requiresAuth: false }
+    },
+    {
+      path: '/chart-of-accounts',
+      name: 'Chart of Accounts',
+      component: () => import('../views/generalLedger/ChartOfAccountView.vue'),
+      meta: { requiresAuth: true }
     }
   ]
 })

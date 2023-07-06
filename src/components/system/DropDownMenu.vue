@@ -28,6 +28,9 @@
 <script setup>
     import { ChevronDownIcon } from '@heroicons/vue/24/solid';
     import { ref } from 'vue'
+    import { useNavigationStore } from '../../stores/navigation';
+
+    const useNavigation = useNavigationStore()
 
     const isOpen = ref(false)
     const props = defineProps({
