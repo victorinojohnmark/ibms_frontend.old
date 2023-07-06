@@ -3,6 +3,7 @@ import { ArrowLongRightIcon, LockOpenIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 import { useAuthStore } from '../../stores/auth'
 
+
 const authStore = useAuthStore()
 
 const loginData = ref({
@@ -15,7 +16,7 @@ const loginData = ref({
 <template>
     <div class="container mx-auto flex lg:flex-row flex-col-reverse lg:mt-12">
         <div id="background-image" class="flex items-center justify-center lg:justify-end w-full lg:w-1/2">
-            <img src="../../assets/img/stats_illustration.svg" class="w-1/2" alt="">
+            <img src="../../assets/img/stats_illustration.svg" class="w-1/3 lg:w-full" alt="">
         </div>
         <div class="flex flex-col justify-center lg:justify-start sm:py-12 w-full lg:w-1/2">
             <div class="p-10 xs:p-0 mx-auto lg:mx-0 md:w-full md:max-w-md">

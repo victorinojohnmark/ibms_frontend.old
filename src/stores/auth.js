@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import router from "../router";
-import ApiClient  from "../helper/api";
+import { useToast } from 'vue-toastification';
 
-const api = new ApiClient()
+const toast = useToast();
 
 export const useAuthStore = defineStore('auth', {
     persist: true,
@@ -49,8 +49,13 @@ export const useAuthStore = defineStore('auth', {
             this.resetErrorAndStatus();
             try {
                 const data = await axios.post('/api/auth/login', loginData);
-                this.authUser = data.data;
-                router.push('/');
+
+                toast.success('Verification done! You are being redirected...', { timeout: 2000 })
+                setTimeout(() => {
+                    this.authUser = data.data;
+                    router.push('/');
+                }, 2200)
+                
             } catch (error) {
                 if(error.response.status === 422) {
                     this.authErrors = error.response.data.errors
@@ -82,7 +87,7 @@ export const useAuthStore = defineStore('auth', {
                     console.error(error.response.data.message)
                 }
 
-                this.authStatus = data.data;
+                this.authStatus = null;
                 this.authErrors = null
                 this.authUser = null
                 router.push('/login?auth=false')

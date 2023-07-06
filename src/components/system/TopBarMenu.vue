@@ -41,13 +41,13 @@
                     </form> -->
                 </div>
                 <div class="flex gap-x-2 items-center justify-items-center">
-                    <button class="text-gray-600 hover:text-green-600 hover:cursor-pointer">
+                    <button v-if="authStore.user" class="text-gray-600 hover:text-green-600 hover:cursor-pointer">
                         <BellIcon class="w-6 h-6" />
                     </button>
 
-                    <button class="text-gray-600 hover:text-green-600 hover:cursor-pointer">
+                    <!-- <button class="text-gray-600 hover:text-green-600 hover:cursor-pointer">
                         <MoonIcon class="w-6 h-6" />
-                    </button>
+                    </button> -->
 
                     <div v-if="authStore.user" class="flex flex-row items-center gap-x-2 text-right text-gray-600 hover:text-green-600 hover:cursor-pointer group" @click="showUserMenu = !showUserMenu" @focusout="showUserMenu = false">
                         <p class="text-sm lg:inline group-hover:text-gray-700 hidden">John Mark Victorino</p>
