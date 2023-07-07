@@ -4,7 +4,8 @@ export const useSystemStore = defineStore('system', {
     persist: true,
     state: () => ({
         systemStatus: null,
-        systemError: []
+        systemError: [],
+        darkMode: false
     }),
     getters: {
         errors: (state) => state.systemError,
@@ -14,6 +15,10 @@ export const useSystemStore = defineStore('system', {
         reset() {
             this.systemError = null
             this.systemStatus = []
-        }
+        },
+        toggleDarkMode() {
+            this.darkMode = !this.darkMode;
+            document.documentElement.classList.toggle('dark', this.darkMode);
+        },
     }
 })
