@@ -19,11 +19,10 @@ export const useAuthStore = defineStore('auth', {
     },
     actions: {
         async initialize() {
+            this.resetErrorAndStatus()
             await axios.get('/sanctum/csrf-cookie')
 
-
             if(this.user && this.user.authorization.token) {
-
                 try {
                     const data = await axios.get('/api/auth/user', {
                         headers: {
@@ -57,12 +56,12 @@ export const useAuthStore = defineStore('auth', {
                 }, 2200)
                 
             } catch (error) {
-                if(error.response.status === 422) {
+                if(error.response.data.errors && error.response.data.errors !== null) {
                     this.authErrors = error.response.data.errors
                 } else {
-                    console.error(error.response.data.message)
+                    this.authStatus = error.response.data.message
+                    // toast.error(error.response.data.message)
                 }
-
             }
         },
         async handleLogout() {
@@ -77,7 +76,7 @@ export const useAuthStore = defineStore('auth', {
                     }
                 });
                 this.authStatus = data.data;
-                this.authErrors = null
+                this.authErrors = []
                 this.authUser = null
                 router.push('/login?auth=false')
             } catch (error) {
@@ -94,10 +93,8 @@ export const useAuthStore = defineStore('auth', {
 
             }
         },
-
-
         resetErrorAndStatus() {
-            this.authErrors = null;
+            this.authErrors = [];
             this.authStatus = null;
         }
 

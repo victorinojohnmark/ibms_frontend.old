@@ -9,5 +9,12 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <script>
+      const systemSettings = localStorage.getItem('system');
+      if(systemSettings !== null) {
+        let settings = JSON.parse(systemSettings);
+        settings.darkMode ? document.documentElement.classList.add('dark') : null;
+      }
+    </script>
   </body>
 </html>
