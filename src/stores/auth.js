@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', {
                         headers: {
                             "Accept": "application/json",
                             "Content-Type": "application/json",
-                            "Authorization": `Bearer ${this.user.token}`
+                            "Authorization": `Bearer ${this.user.authorization.token}`
                         }
                     })
                 } catch (error) {
@@ -66,13 +66,13 @@ export const useAuthStore = defineStore('auth', {
         },
         async handleLogout() {
             this.resetErrorAndStatus();
-            console.log('hello')
+            console.log('logout')
             try {
                 const data = await axios.post('/api/auth/logout', {}, {
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${this.user.data.token}`
+                        "Authorization": `Bearer ${this.user.authorization.token}`
                     }
                 });
                 this.authStatus = data.data;

@@ -75,7 +75,7 @@ const menus = [
          icon: QueueListIcon,
          routeName: 'Home'
       }]
-   }, ],
+   }],
    [{
          name: 'System',
          icon: Cog8ToothIcon,

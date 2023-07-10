@@ -26,7 +26,7 @@ const router = createRouter({
     {
       path: '/chart-of-accounts',
       name: 'Chart of Accounts',
-      component: () => import('../views/generalLedger/ChartOfAccountView.vue'),
+      component: () => import('../views/generalledger/ChartOfAccountView.vue'),
       meta: { requiresAuth: true }
     }
   ]
