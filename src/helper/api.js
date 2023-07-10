@@ -18,14 +18,12 @@ export default class ApiClient {
                     "Authorization": `Bearer ${authStore.user.authorization.token}`
                 },
             });
-            console.log(response.headers);
-            console.log('Token: ', authStore.user.authorization.token)
-            console.log('Response: ', response.data);
+
             return response.data;
             
         } catch (error) {
             if(error.response.status === 500) {
-                toast.error('Oops, Something went wrong to the backend server', { position: 'bottom-right' })
+                toast.error('Oops, Something went wrong with the backend server. Please contact the administrator.', { position: 'bottom-right' })
             }
 
             if(error.response.status === 401) {
@@ -33,7 +31,7 @@ export default class ApiClient {
                 // router.push('/login?auth=false')
             }
 
-            console.error(error)
+            return error
         }
     }
 
@@ -49,14 +47,14 @@ export default class ApiClient {
             return data;
         } catch (error) {
             if(error.response.status === 500) {
-                toast.error('Oops, Something went wrong to the backend server', { position: 'bottom-right' })
+                toast.error('Oops, Something went wrong with the backend server. Please contact the administrator.', { position: 'bottom-right' })
             }
 
             if(error.response.status === 401) {
                 authStore.handleLogout()
             }
 
-            console.error(error)
+            return error
 
 
         }

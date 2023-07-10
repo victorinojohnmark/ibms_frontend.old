@@ -5,6 +5,7 @@ const api = new ApiClient();
 
 export default function useChartOfAccounts() {
   const accounts = ref([]);
+  const selectedAccount = ref(null)
   const accountCount = computed(() => accounts.length);
 
   const fetchAccounts = async (urlParam = null) => {
@@ -16,6 +17,15 @@ export default function useChartOfAccounts() {
       console.error('Failed to fetch accounts:', error);
     }
   };
+
+  const fetchAccount = async (id) => {
+    try {
+      const response = await api.get(`/api/chartofaccounts/${id}`);
+      selectedAccount.value = response.data;
+    } catch (error) {
+      console.error('Failed to fetch accounts:', error);
+    }
+  }
 
   const addAccount = async (name) => {
     try {

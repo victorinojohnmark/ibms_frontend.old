@@ -10,13 +10,13 @@
                             comprehensive list of categorized accounts for accurate record-keeping</p>
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <BaseButton @click="showNotif" name="Add Account"/>
+                        <BaseButton name="Add Account"/>
                         <BaseButton name="Import"/>
                     </div>
                 </div>
 
                 <div class="mt-4 flow-root">
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 ">
+                    <div class="-my-2 sm:-mx-6 ">
                         <div v-if="accounts.length == 0" id="loader" class="w-full flex justify-center">
                             <div role="status">
                                 <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-green-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,6 +75,52 @@
                                 </table>
                             </div>
 
+                            <div tabindex="-1" aria-hidden="true" class="fixed flex justify-center items-center left-0 right-0 z-20 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative w-full max-w-2xl max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <!-- Modal header -->
+                                        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                Terms of Service
+                                            </h3>
+                                            <button type="button"
+                                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-hide="defaultModal">
+                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="p-6 space-y-6">
+                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                With less than a month to go before the European Union enacts new consumer privacy laws for its
+                                                citizens, companies around the world are updating their terms of service agreements to comply.
+                                            </p>
+                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is
+                                                meant to ensure a common set of data rights in the European Union. It requires organizations to
+                                                notify users as soon as possible of high-risk data breaches that could personally affect them.
+                                            </p>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                            <button data-modal-hide="defaultModal" type="button"
+                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I
+                                                accept</button>
+                                            <button data-modal-hide="defaultModal" type="button"
+                                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             
                         </div>
                     </div>
@@ -96,9 +142,9 @@
                                 <BaseButton name="Export List" />
                                 <div>
                                     <p class="text-sm text-gray-700" v-if="accounts">Showing
-                                        <span class="font-medium"> {{ accounts.current_page }} </span> to
-                                        <span class="font-medium"> {{ accounts.last_page }} </span> of
-                                        <span class="font-medium"> {{ accounts.total }} </span> results
+                                        <span class="font-medium"> {{ accounts.meta.current_page }} </span> to
+                                        <span class="font-medium"> {{ accounts.meta.last_page }} </span> of
+                                        <span class="font-medium"> {{ accounts.meta.total }} </span> results
                                     </p>
                                 </div>
                             </div>
@@ -107,7 +153,7 @@
                                 <TailwindPagination :data="accounts" @pagination-change-page="getAccounts"
                                     :limit="2"
                                     :item-classes="['leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white']"
-                                    :active-classes="['text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white']" />
+                                    :active-classes="['text-green-600 border border-gray-300 bg-green-50 hover:bg-green-100 hover:text-green-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white']" />
                             </div>
                         </div>
                     </div>
@@ -118,21 +164,15 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { useToast } from 'vue-toastification';
+import { ref } from 'vue';
 import useChartOfAccounts from '../../composables/chartOfAccount';
 import { TailwindPagination } from 'laravel-vue-pagination';
 import BaseButton from '../../components/system/BaseButton.vue';
 
-const toast = useToast()
-
-const showNotif = () => {
-    toast.success('Hey, this is Chart of Accounts module', { position: 'top-right' })
-}
 
 const filterParam = ref('')
 
-const { accounts, fetchAccounts } = useChartOfAccounts()
+const { accounts, selectedAccount, fetchAccounts, fetchAccount } = useChartOfAccounts()
 const getAccounts = async (page = 1) => {
     filterParam.value = await fetchAccounts(`${filterParam.value ? filterParam.value + '&' : ''}page=${page}`)
 }
