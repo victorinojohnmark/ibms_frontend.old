@@ -10,9 +10,8 @@ export default function useChartOfAccounts() {
 
   const fetchAccounts = async (urlParam = null) => {
     try {
-      const response = await api.get(`/api/chartofaccounts${ !urlParam ? '' : '?' + urlParam }`);
+      const response = await api.get(`/api/chart-of-accounts${ !urlParam ? '' : '?' + urlParam }`);
       accounts.value = response
-    //   accounts.push(...response.data); // Add fetched accounts
     } catch (error) {
       console.error('Failed to fetch accounts:', error);
     }
@@ -20,7 +19,7 @@ export default function useChartOfAccounts() {
 
   const fetchAccount = async (id) => {
     try {
-      const response = await api.get(`/api/chartofaccounts/${id}`);
+      const response = await api.get(`/api/chart-of-accounts/${id}`);
       selectedAccount.value = response.data;
     } catch (error) {
       console.error('Failed to fetch accounts:', error);
@@ -29,7 +28,7 @@ export default function useChartOfAccounts() {
 
   const addAccount = async (name) => {
     try {
-      const response = await axios.post('/api/chartofaccounts', { name });
+      const response = await axios.post('/api/chart-of-accounts', { name });
       const newAccount = response.data;
       accounts.push(newAccount);
     } catch (error) {
@@ -39,7 +38,7 @@ export default function useChartOfAccounts() {
 
   const deleteAccount = async (accountId) => {
     try {
-      await axios.delete(`/api/chartofaccounts/${accountId}`);
+      await axios.delete(`/api/chart-of-accounts/${accountId}`);
       const index = accounts.findIndex((account) => account.id === accountId);
       if (index !== -1) {
         accounts.splice(index, 1);
@@ -57,6 +56,7 @@ export default function useChartOfAccounts() {
     addAccount,
     deleteAccount,
     accountCount,
+    fetchAccount,
     fetchAccounts,
   };
 }
