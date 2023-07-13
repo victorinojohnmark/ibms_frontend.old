@@ -1,18 +1,18 @@
 <template>
-    <div class="bg-white py-10 rounded-lg border shadow-sm border-gray-200 dark:border-gray-700 dark:bg-gray-800">
+    <div class="bg-white py-5 rounded-lg border shadow-sm border-gray-200 dark:border-gray-700 dark:bg-gray-800">
         <div class="mx-auto max-w-7xl">
             <div class="px-6">
                 <div class="sm:flex sm:items-start">
                     <div class="flex-auto">
                         <h1 class=" text-base font-semibold leading-6 text-gray-900 dark:text-white">Chart of Accounts
                         </h1>
-                        <p class="mt-2 text-sm text-gray-700 dark:text-gray-400">Streamline financial tracking with a
+                        <p class="hidden md:block mt-2 text-sm text-gray-700 dark:text-gray-400">Streamline financial tracking with a
                             comprehensive list of categorized accounts for accurate record-keeping</p>
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <BaseButton name="Add Account" @click="toggleModal()"/>
-                        <BaseModal title="Add Account" v-if="showModal" @close-modal="toggleModal()">
-                            <ChartOfAccountForm />
+                        <BaseButton name="Add Account" @click="handleAddAccountModal()"/>
+                        <BaseModal title="Add Account" v-if="showCreateModal" @close-modal="toggleCreateModal()">
+                            <ChartOfAccountForm :account="account" @save="handleAddAccountModal"/>
                         </BaseModal>
 
                         <BaseButton name="Import"/>
@@ -21,18 +21,12 @@
 
                 <div class="mt-4 flow-root">
                     <div class="-my-2 sm:-mx-6 ">
-                        <div v-if="accounts.length == 0" id="loader" class="w-full flex justify-center">
-                            <div role="status">
-                                <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-green-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                                </svg>
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
+                        <BaseLoading v-if="accounts.length == 0" />
+
                         <div v-else class="inline-block min-w-full py-2 align-middle sm:px-6">
-                            <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-600 h-minus-250px md:h-minus-300px overflow-y-auto md:hidden">
-                                <li v-for="(account, index) in accounts.data" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 even:bg-gray-50 even:dark:bg-gray-800">
+                            <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-600 h-minus-18.7 overflow-y-auto no-scrollbar md:hidden">
+                                <li v-for="(account, index) in accounts.data" @click="handleShowAccountModal(account.id)" 
+                                    class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 even:bg-gray-50 even:dark:bg-gray-800">
                                     <div class="flex justify-between items-start gap-x-2 py-5 group px-4 transition-all ease-linear">   
                                         <div class="min-w-0 flex-auto">
                                             <div class="flex items-center">
@@ -70,7 +64,7 @@
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ account.description }}</th>
                                             <td class="px-6 py-4">{{ account.type }}</td>
-                                            <td class="px-6 py-4"><a href="#"
+                                            <td class="px-6 py-4"><a href="#" @click="handleShowAccountModal(account.id)"
                                                     class="font-medium text-green-600 dark:text-green-500 hover:underline">Edit</a>
                                             </td>
                                         </tr>
@@ -78,6 +72,11 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <BaseModal title="Update Account" v-if="showModal" @close-modal="handleCloseModal()">
+                                <div class="h-8" v-if="selectedAccount == null"></div> <!-- Filler for loding icon -->
+                                <ChartOfAccountForm v-else :account="selectedAccount" />
+                            </BaseModal>
                         </div>
                     </div>
                 </div>
@@ -85,19 +84,18 @@
 
 
                 <div  v-if="accounts.length !== 0" class="mt-4">
-                    <div
-                        class="flex items-center justify-between mt-auto">
+                    <div class="flex items-center justify-between mt-auto">
                         <div class="flex flex-1 justify-between md:hidden">
                             <div>
-                                <BaseButton name="Export List" />
+                                <BaseButton name="Download List" @click="downloadAccountList(filterParam)" />
                             </div>
-                            <TailwindPagination :data="accounts" @pagination-change-page="getAccounts" :limit="-1"
+                            <TailwindPagination :data="accounts" @pagination-change-page="getAccounts" class="shadow-none" :limit="-1"
                                 :item-classes="['flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white']"
                                 :active-classes="['']" />
                         </div>
                         <div class="hidden md:flex md:flex-1 md:items-center md:justify-between">
                             <div class="inline-flex items-center gap-x-2">
-                                <BaseButton name="Export List" />
+                                <BaseButton name="Download List" @click="downloadAccountList(filterParam)" />
                                 <div>
                                     <p class="text-sm text-gray-700 dark:text-white" v-if="accounts">Showing
                                         <span class="font-medium"> {{ accounts.meta.current_page }} </span> to
@@ -123,23 +121,59 @@
 
 <script setup>
 import { ref } from 'vue';
-import useChartOfAccounts from '../../composables/chartOfAccount';
+import useChartOfAccounts from '../../../composables/chartOfAccount';
 import { TailwindPagination } from 'laravel-vue-pagination';
-import BaseButton from '../../components/system/BaseButton.vue';
-import BaseModal from '../../components/system/BaseModal.vue';
-import ChartOfAccountForm from '../../components/chartofaccount/ChartOfAccountForm.vue';
+import BaseButton from '../../../components/system/BaseButton.vue';
+import BaseModal from '../../../components/system/BaseModal.vue';
+import BaseLoading from '../../../components/system/BaseLoading.vue';
+import ChartOfAccountForm from './component/ChartOfAccountForm.vue';
 
 const filterParam = ref('')
 
-const { accounts, selectedAccount, fetchAccounts, fetchAccount } = useChartOfAccounts()
+const { accounts, addAccount, selectedAccount, fetchAccounts, fetchAccount, diselectAccount, downloadAccountList } = useChartOfAccounts()
+
 const getAccounts = async (page = 1) => {
-    filterParam.value = await fetchAccounts(`${filterParam.value ? filterParam.value + '&' : ''}page=${page}`)
-    console.log(`${filterParam.value ? filterParam.value + '&' : ''}page=${page}`)
+    filterParam.value = await fetchAccounts(`${filterParam.value ? filterParam.value : ''}`, page)
+    console.log('Filter:', `${filterParam.value ? filterParam.value + '&' : ''}page=${page}`)
 }
 
+const account = ref({
+    account_number: '',
+    description: '',
+    type: ''
+})
+
 const showModal = ref(false);
+const showCreateModal = ref(false);
+
 const toggleModal = () => {
     showModal.value = !showModal.value
+}
+
+const toggleCreateModal = () => {
+    showCreateModal.value = !showCreateModal.value
+}
+
+const handleAddAccountModal = () => {
+    toggleCreateModal()
+    filterParam.value = ''
+    getAccounts()
+}
+
+const handleCloseModal = () => {
+    toggleModal()
+    diselectAccount()
+    getAccounts()
+}
+
+const handleShowAccountModal = (id) => {
+    fetchAccount(id)
+    toggleModal()
+}
+
+const handleAddAcount = async () => {
+    await addAccount(account)
+    toggleCreateModal()
 }
 
 </script>

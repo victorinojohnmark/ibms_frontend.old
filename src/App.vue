@@ -3,33 +3,10 @@
     <TopBarMenu />
     <!-- Sidebar -->
     <SideBarMenu v-if="authStore.user"/>
-    <main class="p-4 md:ml-64 h-auto pt-20 min-h-screen">
+    <main class="p-4 lg:ml-64 h-auto pt-20 min-h-screen">
       <RouterView />
     </main>
   </div>
-<!--   
-  <div v-if="authStore.user">
-    <TopBarMenu />
-    <div class="flex bg-white pt-16">
-        <SideBarMenu />
-        <div id="main-content" class="flex flex-col w-full bg-gray-50 relative lg:ml-64 h-default-116px">
-          <main class=" flex-grow mt-4 mx-4">
-              <RouterView />
-          </main>
-        </div>
-    </div>
-  </div>
-
-  <div v-else>
-    <TopBarMenu />
-    <div class="flex bg-white pt-16">
-        <div id="main-content" class="flex flex-col w-full bg-gray-50 relative h-default-116px">
-          <main class=" flex-grow mt-4 mx-4">
-              <RouterView />
-          </main>
-        </div>
-    </div>
-  </div> -->
 </template>
 
 <script setup>

@@ -21,7 +21,13 @@ a {
     color: inherit;
     text-decoration: inherit;
 }
-/* 
-.table-stripe > tbody > tr:nth-child(even) {
-    background-color: #f9fafb;
-  } */
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
