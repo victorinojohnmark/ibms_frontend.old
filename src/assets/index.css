@@ -31,3 +31,11 @@ a {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+.no-arrow input[type='number']::-webkit-outer-spin-button,
+.no-arrow input[type='number']::-webkit-inner-spin-button,
+.no-arrow input[type='number'] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield !important;
+    margin: 0;
+}

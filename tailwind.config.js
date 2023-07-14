@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   darkMode: 'class',
   content: [
@@ -55,6 +56,21 @@ module.exports = {
   },
   plugins: [
     // require('flowbite/plugin')
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.arrow-hide':{
+          '&::-webkit-inner-spin-button':{
+            '-webkit-appearance': 'none',
+            'margin': 0
+          },
+          '&::-webkit-outer-spin-button':{
+            '-webkit-appearance': 'none',
+            'margin': 0
+          },
+        }
+      }
+      )
+    })
   ],
 }
 

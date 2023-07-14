@@ -10,7 +10,7 @@
                             comprehensive list of categorized accounts for accurate record-keeping</p>
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <BaseButton name="Add Account" @click="handleAddAccountModal()"/>
+                        <BaseButton name="Add Account" @click="toggleCreateModal()"/>
                         <BaseModal title="Add Account" v-if="showCreateModal" @close-modal="toggleCreateModal()">
                             <ChartOfAccountForm :account="account" @save="handleAddAccountModal"/>
                         </BaseModal>
@@ -25,8 +25,8 @@
 
                         <div v-else class="inline-block min-w-full py-2 align-middle sm:px-6">
                             <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-600 h-minus-18.7 overflow-y-auto no-scrollbar md:hidden">
-                                <li v-for="(account, index) in accounts.data" @click="handleShowAccountModal(account.id)" 
-                                    class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 even:bg-gray-50 even:dark:bg-gray-800">
+                                <li v-for="(account, index) in accounts.data" @click="handleShowAccountModal(account.id)"
+                                    class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 even:bg-gray-50 even:dark:bg-gray-800 cursor-pointer">
                                     <div class="flex justify-between items-start gap-x-2 py-5 group px-4 transition-all ease-linear">   
                                         <div class="min-w-0 flex-auto">
                                             <div class="flex items-center">
@@ -73,9 +73,9 @@
                                 </table>
                             </div>
 
-                            <BaseModal title="Update Account" v-if="showModal" @close-modal="handleCloseModal()">
+                            <BaseModal title="Update Account" v-if="showModal" @close-modal="toggleModal()">
                                 <div class="h-8" v-if="selectedAccount == null"></div> <!-- Filler for loding icon -->
-                                <ChartOfAccountForm v-else :account="selectedAccount" />
+                                <ChartOfAccountForm v-else :account="selectedAccount" @save="handleUpdateAccount"/>
                             </BaseModal>
                         </div>
                     </div>
@@ -129,12 +129,14 @@ import BaseLoading from '../../../components/system/BaseLoading.vue';
 import ChartOfAccountForm from './component/ChartOfAccountForm.vue';
 
 const filterParam = ref('')
+const currentPage = ref(1)
 
-const { accounts, addAccount, selectedAccount, fetchAccounts, fetchAccount, diselectAccount, downloadAccountList } = useChartOfAccounts()
+const { accounts, addAccount, updateAccount, selectedAccount, fetchAccounts, fetchAccount, diselectAccount, downloadAccountList } = useChartOfAccounts()
 
 const getAccounts = async (page = 1) => {
-    filterParam.value = await fetchAccounts(`${filterParam.value ? filterParam.value : ''}`, page)
-    console.log('Filter:', `${filterParam.value ? filterParam.value + '&' : ''}page=${page}`)
+    currentPage.value = page;
+    filterParam.value = await fetchAccounts(`${filterParam.value ? filterParam.value : ''}`, currentPage.value)
+    console.log('Filter:', `${filterParam.value ? filterParam.value + '&' : ''}page=${currentPage.value}`)
 }
 
 const account = ref({
@@ -154,26 +156,27 @@ const toggleCreateModal = () => {
     showCreateModal.value = !showCreateModal.value
 }
 
-const handleAddAccountModal = () => {
-    toggleCreateModal()
+const handleAddAccountModal = async () => {
+    await addAccount(account)
     filterParam.value = ''
     getAccounts()
-}
-
-const handleCloseModal = () => {
-    toggleModal()
-    diselectAccount()
-    getAccounts()
+    toggleCreateModal()
 }
 
 const handleShowAccountModal = (id) => {
+    filterParam.value = ''
     fetchAccount(id)
     toggleModal()
 }
 
-const handleAddAcount = async () => {
-    await addAccount(account)
-    toggleCreateModal()
+const handleUpdateAccount = async (newAccount) => {
+    const index = await accounts.value.data.findIndex(obj => obj.id === newAccount.id);
+    if(index !== -1) {
+        accounts.value.data[index] = newAccount
+        toggleModal()
+    } else {
+        getAccounts
+    }
 }
 
 </script>

@@ -60,4 +60,29 @@ export default class ApiClient {
         }
     }
 
+    async patch(path, body) {
+        try {
+            const data = await axios.patch(path, body, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${authStore.user.authorization.token}`
+                },
+            });
+            return data;
+        } catch (error) {
+            if(error.response.status === 500) {
+                toast.error('Oops, Something went wrong with the backend server. Please contact the administrator.', { position: 'bottom-right' })
+            }
+
+            if(error.response.status === 401) {
+                authStore.handleLogout()
+            }
+
+            return error
+
+
+        }
+    }
+
 }

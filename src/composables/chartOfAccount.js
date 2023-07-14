@@ -31,12 +31,24 @@ export default function useChartOfAccounts() {
   }
 
   const addAccount = async (data) => {
-    console.log(data)
     try {
       const response = await api.post('/api/chart-of-accounts', data)
       if(response.data) {
         fetchAccounts()
         toast.success('Account added successfully')
+      }
+      
+    } catch (error) {
+      console.error('Failed to add account:', error);
+    }
+  };
+
+  const updateAccount = async (data) => {
+    try {
+      const response = await api.patch(`/api/chart-of-accounts/${data.id}`, data)
+      if(response.data) {
+        toast.success('Account updated successfully')
+        return response.data
       }
       
     } catch (error) {
@@ -61,23 +73,6 @@ export default function useChartOfAccounts() {
   }
 
   const downloadAccountList = async (urlParam = null) => {
-    // try {
-    //   const response = await api.get(`/api/chart-of-accounts${ !urlParam ? '' : '?' + urlParam }`);
-    //   const jsonData = await response.data;
-
-    //   const parser = new Parser({})
-    //   const csv = parser.parse(jsonData)
-
-    //   const blob = new Blob([csv], { type: 'text/csv' })
-
-    //   const link = document.createElement('a');
-    //   link.href = URL.createObjectURL(blob);
-    //   link.download = 'data.csv';
-
-    //   link.click();
-    // } catch (error) {
-    //   console.error(error)
-    // }
 
     try {
       const response = await api.get(`/api/chart-of-accounts${ !urlParam ? '' : '?' + urlParam }`);
@@ -105,6 +100,7 @@ export default function useChartOfAccounts() {
   return {
     accounts,
     selectedAccount,
+    updateAccount,
     addAccount,
     deleteAccount,
     accountCount,

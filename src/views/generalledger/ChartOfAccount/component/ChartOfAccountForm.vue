@@ -2,7 +2,7 @@
     <BaseLoading v-if="accountTypes.length == 0" />
     <form v-else @submit.prevent action="#">
         <div class="grid gap-4 mb-4 sm:grid-cols-2">
-            <BaseInput v-model="account.account_number" type="number" label="Account No#"/>
+            <BaseInput v-model="account.account_number" type="number" class="no-arrow" label="Account No#"/>
             <BaseInput v-model="account.description" label="Decription"/>
             <BaseSelectInput v-model="account.type" :options="accountTypes" label="Account Type"/>
             
@@ -22,7 +22,7 @@ import BaseLoading from '../../../../components/system/BaseLoading.vue';
 import ApiClient from '../../../../helper/api'
 import useChartOfAccounts from '../../../../composables/chartOfAccount';
 
-const { addAccount } = useChartOfAccounts()
+const { accounts, addAccount, updateAccount } = useChartOfAccounts()
 
 const emit = defineEmits(['save','cancel'])
 
@@ -48,8 +48,8 @@ onBeforeMount(async () => {
 
 const handleSaveAccount = async () => {
     if(props.account.id) {
-        
-        emit('save')
+        const updatedAccount = await updateAccount(props.account)
+        emit('save', updatedAccount.data)
     } else {
         await addAccount(props.account)
         emit('save')
