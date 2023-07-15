@@ -37,8 +37,11 @@ export default function useChartOfAccounts() {
     try {
       // console.log('Add Account data: ',data)
       const response = await api.post('/api/chart-of-accounts', data)
-      toast.success('Account added successfully!')
-      return response
+      
+      if(response) {
+        toast.success('Account added successfully!')
+        return response.data
+      }
       
     } catch (error) {
       console.error('Failed to add account:', error);

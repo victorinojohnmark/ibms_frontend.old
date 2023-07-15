@@ -77,7 +77,7 @@ export default class ApiClient {
         }
 
         systemStore.systemError = error.response.data.errors
-        console.error(error)
+        // console.error('API Request Error: ',error)
         // return error
     }
 

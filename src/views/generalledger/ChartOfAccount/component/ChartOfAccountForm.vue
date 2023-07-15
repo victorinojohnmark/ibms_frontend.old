@@ -53,16 +53,20 @@ onBeforeMount(async () => {
 })
 
 const handleSaveAccount = async () => {
-    if(props.account.id) {
-        const updatedAccount = await updateAccount(props.account)
-        if(updatedAccount) {
-            emit('save', updatedAccount.data)
+    try {
+        if(props.account.id) {
+            const updatedAccount = await updateAccount(props.account)
+            if(updatedAccount) {
+                emit('save', updatedAccount.data)
+            }
+        } else {
+            const newAccount = await addAccount(props.account)
+            if(newAccount) {
+                emit('save')
+            }
         }
-    } else {
-        const newAccount = await addAccount(props.account)
-        if(newAccount.data) {
-            emit('save')
-        }
+    } catch (error) {
+        console.error(error)
     }
     
 }
