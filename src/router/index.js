@@ -28,6 +28,12 @@ const router = createRouter({
       name: 'Chart of Accounts',
       component: () => import('../views/generalledger/ChartOfAccount/ChartOfAccountView.vue'),
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/payees',
+      name: 'Payees',
+      component: () => import('../views/payables/payees/PayeesView.vue'),
+      meta: { requiresAuth: true }
     }
   ]
 })

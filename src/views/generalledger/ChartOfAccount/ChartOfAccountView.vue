@@ -7,7 +7,7 @@
                         <h1 class=" text-base font-semibold leading-6 text-gray-900 dark:text-white">Chart of Accounts
                         </h1>
                         <p class="hidden md:block mt-2 text-sm text-gray-700 dark:text-gray-400">Streamline financial tracking with a
-                            comprehensive list of categorized accounts for accurate record-keeping</p>
+                            comprehensive list of categorized accounts for accurate record-keeping.</p>
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <BaseButton name="Add Account" @click="toggleCreateModal()"/>
