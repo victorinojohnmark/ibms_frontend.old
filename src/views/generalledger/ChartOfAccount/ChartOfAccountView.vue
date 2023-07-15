@@ -138,7 +138,7 @@ const { accounts, addAccount, updateAccount, selectedAccount, fetchAccounts, fet
 const getAccounts = async (page = 1) => {
     currentPage.value = page;
     filterParam.value = await fetchAccounts(`${filterParam.value ? filterParam.value : ''}`, currentPage.value)
-    console.log('Filter:', `${filterParam.value ? filterParam.value + '&' : ''}page=${currentPage.value}`)
+    // console.log('Filter:', `${filterParam.value ? filterParam.value + '&' : ''}page=${currentPage.value}`)
 }
 
 const account = ref({

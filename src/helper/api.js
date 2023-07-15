@@ -33,7 +33,7 @@ export default class ApiClient {
     }
 
     async post(path, body) {
-        console.log('API Class post: ', body);
+        // console.log('API Class post: ', body);
         try {
             const data = await axios.post(path, body, {
                 headers: {
