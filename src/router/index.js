@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useNavigationStore } from '../stores/navigation'
 import { useAuthStore } from '../stores/auth'
+import { useSystemStore } from '../stores/system'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,10 +42,11 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const useNavigation = useNavigationStore()
   const authStore = useAuthStore()
+  const systemStore = useSystemStore()
 
   useNavigation.hideSideBarMenu()
-  
   authStore.resetErrorAndStatus()
+  systemStore.reset()
 
   if(to.meta.requiresAuth && !authStore.user) {
     next({ path: '/login', query: { auth: 'false' } });

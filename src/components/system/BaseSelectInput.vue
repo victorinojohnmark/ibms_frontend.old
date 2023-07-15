@@ -6,6 +6,7 @@
         <option value="" disabled selected>Select type here</option>
         <option v-if="options.length" v-for="option in options" :value="getValue(option)">{{ getLabel(option) }}</option>
         </select>
+        <p v-if="error !== null" class="mt-2 text-xs font-semibold text-red-400">{{ error }}</p>
     </div>
 </template>
 
@@ -28,6 +29,14 @@ const props = defineProps({
     required: {
         type: Boolean,
         default: true
+    },
+    error: {
+        type: String,
+        default: null
+    },
+    class: {
+        type: String,
+        default: ''
     }
 })
 

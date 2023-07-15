@@ -2,14 +2,17 @@ import { ref, reactive, computed } from 'vue';
 import ApiClient from '../helper/api.js';
 import { useToast } from 'vue-toastification';
 import * as XSLX from 'xlsx';
+import { useSystemStore } from '../stores/system.js';
 
 const toast = useToast()
 const api = new ApiClient();
+const systemStore = useSystemStore()
 
 export default function useChartOfAccounts() {
   const accounts = ref([]);
   const selectedAccount = ref(null)
   const accountCount = computed(() => accounts.length);
+  const accountErrors = ref([]);
 
   const fetchAccounts = async (urlParam = null, page = 1) => {
     try {
@@ -32,11 +35,10 @@ export default function useChartOfAccounts() {
 
   const addAccount = async (data) => {
     try {
+      console.log('Add Account data: ',data)
       const response = await api.post('/api/chart-of-accounts', data)
-      if(response.data) {
-        fetchAccounts()
-        toast.success('Account added successfully')
-      }
+      toast.success('Account added successfully!')
+      return response
       
     } catch (error) {
       console.error('Failed to add account:', error);
@@ -48,23 +50,12 @@ export default function useChartOfAccounts() {
       const response = await api.patch(`/api/chart-of-accounts/${data.id}`, data)
       if(response.data) {
         toast.success('Account updated successfully')
+        diselectAccount()
         return response.data
       }
       
     } catch (error) {
       console.error('Failed to add account:', error);
-    }
-  };
-
-  const deleteAccount = async (accountId) => {
-    try {
-      await axios.delete(`/api/chart-of-accounts/${accountId}`);
-      const index = accounts.findIndex((account) => account.id === accountId);
-      if (index !== -1) {
-        accounts.splice(index, 1);
-      }
-    } catch (error) {
-      console.error('Failed to delete account:', error);
     }
   };
 
@@ -102,7 +93,7 @@ export default function useChartOfAccounts() {
     selectedAccount,
     updateAccount,
     addAccount,
-    deleteAccount,
+    // deleteAccount,
     accountCount,
     fetchAccount,
     fetchAccounts,

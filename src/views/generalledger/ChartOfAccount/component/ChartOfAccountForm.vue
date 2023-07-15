@@ -2,9 +2,12 @@
     <BaseLoading v-if="accountTypes.length == 0" />
     <form v-else @submit.prevent action="#">
         <div class="grid gap-4 mb-4 sm:grid-cols-2">
-            <BaseInput v-model="account.account_number" type="number" class="no-arrow" label="Account No#"/>
-            <BaseInput v-model="account.description" label="Decription"/>
-            <BaseSelectInput v-model="account.type" :options="accountTypes" label="Account Type"/>
+            <BaseInput v-model="account.account_number" type="number" class="no-arrow" label="Account No#"
+            :error="systemStore.errors && systemStore.errors.account_number ? systemStore.errors.account_number[0] : null" />
+            <BaseInput v-model="account.description" label="Decription" 
+            :error="systemStore.errors && systemStore.errors.description ? systemStore.errors.description[0] : null" />
+            <BaseSelectInput v-model="account.type" :options="accountTypes" label="Account Type" 
+            :error="systemStore.errors && systemStore.errors.type ? systemStore.errors.type[0] : null" />
             
         </div>
         <div class="flex items-center space-x-4">
@@ -14,15 +17,18 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onMounted, ref, watch } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import BaseInput from '../../../../components/system/BaseInput.vue'
 import BaseSelectInput from '../../../../components/system/BaseSelectInput.vue'
 import BaseButton from '../../../../components/system/BaseButton.vue'
 import BaseLoading from '../../../../components/system/BaseLoading.vue';
 import ApiClient from '../../../../helper/api'
 import useChartOfAccounts from '../../../../composables/chartOfAccount';
+import { useSystemStore } from '../../../../stores/system';
 
-const { accounts, addAccount, updateAccount } = useChartOfAccounts()
+const systemStore = useSystemStore()
+
+const { addAccount, updateAccount } = useChartOfAccounts()
 
 const emit = defineEmits(['save','cancel'])
 
@@ -49,16 +55,16 @@ onBeforeMount(async () => {
 const handleSaveAccount = async () => {
     if(props.account.id) {
         const updatedAccount = await updateAccount(props.account)
-        emit('save', updatedAccount.data)
+        if(updatedAccount) {
+            emit('save', updatedAccount.data)
+        }
     } else {
-        await addAccount(props.account)
-        emit('save')
+        const newAccount = await addAccount(props.account)
+        if(newAccount.data) {
+            emit('save')
+        }
     }
     
 }
 
-
-// watch(selectedAccount, (newValue) => {
-//     account.value = selectedAccount
-// })
 </script>

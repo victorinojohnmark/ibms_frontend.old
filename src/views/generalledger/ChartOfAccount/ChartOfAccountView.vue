@@ -127,7 +127,9 @@ import BaseButton from '../../../components/system/BaseButton.vue';
 import BaseModal from '../../../components/system/BaseModal.vue';
 import BaseLoading from '../../../components/system/BaseLoading.vue';
 import ChartOfAccountForm from './component/ChartOfAccountForm.vue';
+import { useSystemStore } from '../../../stores/system';
 
+const systemStore = useSystemStore()
 const filterParam = ref('')
 const currentPage = ref(1)
 
@@ -150,16 +152,26 @@ const showCreateModal = ref(false);
 
 const toggleModal = () => {
     showModal.value = !showModal.value
+    if(!showModal.value) {
+        systemStore.reset()
+    }
 }
 
 const toggleCreateModal = () => {
     showCreateModal.value = !showCreateModal.value
+
+    if(!showCreateModal.value) {
+        systemStore.reset()
+    }
 }
 
 const handleAddAccountModal = async () => {
-    await addAccount(account)
+    // await addAccount(account)
     filterParam.value = ''
     getAccounts()
+    account.value.account_number = ''
+    account.value.description = ''
+    account.value.type = ''
     toggleCreateModal()
 }
 
