@@ -12,7 +12,6 @@ export default function useChartOfAccounts() {
   const accounts = ref([]);
   const selectedAccount = ref(null)
   const accountCount = computed(() => accounts.length);
-  const accountErrors = ref([]);
 
   const fetchAccounts = async (urlParam = null, page = 1) => {
     try {
@@ -35,11 +34,11 @@ export default function useChartOfAccounts() {
 
   const addAccount = async (data) => {
     try {
-      // console.log('Add Account data: ',data)
       const response = await api.post('/api/chart-of-accounts', data)
       
       if(response) {
         toast.success('Account added successfully!')
+        systemStore.reset()
         return response.data
       }
       
@@ -54,6 +53,7 @@ export default function useChartOfAccounts() {
       if(response.data) {
         toast.success('Account updated successfully')
         diselectAccount()
+        systemStore.reset()
         return response.data
       }
       

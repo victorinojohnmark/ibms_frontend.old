@@ -1,7 +1,7 @@
 <template>
     <div class="bg-white py-5 rounded-lg border shadow-sm border-gray-200 dark:border-gray-700 dark:bg-gray-800">
         <div class="mx-auto max-w-7xl">
-            <div class="px-6">
+            <div class="px-6 md:py-3">
                 <div class="sm:flex sm:items-start">
                     <div class="flex-auto">
                         <h1 class=" text-base font-semibold leading-6 text-gray-900 dark:text-white">Chart of Accounts
