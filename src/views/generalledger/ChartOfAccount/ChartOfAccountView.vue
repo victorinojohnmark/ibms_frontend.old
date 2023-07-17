@@ -6,16 +6,16 @@
                     <div class="flex-auto">
                         <h1 class=" text-base font-semibold leading-6 text-gray-900 dark:text-white">Chart of Accounts
                         </h1>
-                        <p class="hidden md:block mt-2 text-sm text-gray-700 dark:text-gray-400">Streamline financial tracking with a
-                            comprehensive list of categorized accounts for accurate record-keeping.</p>
+                        <p class="hidden md:block mt-2 text-sm text-gray-700 dark:text-gray-400">Streamline financial
+                            tracking with a comprehensive list of categorized accounts for accurate record-keeping.</p>
                     </div>
                     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                        <BaseButton name="Add Account" @click="toggleCreateModal()"/>
+                        <BaseButton name="Add Account" @click="toggleCreateModal()" />
                         <BaseModal title="Add Account" v-if="showCreateModal" @close-modal="toggleCreateModal()">
-                            <ChartOfAccountForm :account="account" @save="handleAddAccountModal"/>
+                            <ChartOfAccountForm :account="account" @save="handleAddAccountModal" />
                         </BaseModal>
 
-                        <BaseButton name="Import"/>
+                        <BaseButton name="Import" />
                     </div>
                 </div>
 
@@ -24,23 +24,24 @@
                         <BaseLoading v-if="accounts.length == 0" />
 
                         <div v-else class="inline-block min-w-full py-2 align-middle sm:px-6">
-                            <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-600 h-minus-18.7 overflow-y-auto no-scrollbar md:hidden">
-                                <li v-for="(account, index) in accounts.data" @click="handleShowAccountModal(account.id)"
+                            <ul role="list"
+                                class="divide-y divide-gray-100 dark:divide-gray-600 h-minus-18.7 overflow-y-auto no-scrollbar md:hidden">
+                                <li v-for="(account, index) in accounts.data"
+                                    @click="handleShowAccountModal(account.id)"
                                     class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 even:bg-gray-50 even:dark:bg-gray-800 cursor-pointer">
-                                    <div class="flex justify-between items-start gap-x-2 py-5 group px-4 transition-all ease-linear">   
+                                    <div
+                                        class="flex justify-between items-start gap-x-2 py-5 group px-4 transition-all ease-linear">
                                         <div class="min-w-0 flex-auto">
                                             <div class="flex items-center">
-                                                <p class="text-sm font-semibold leading-6 text-gray-700 dark:text-white">
+                                                <p
+                                                    class="text-sm font-semibold leading-6 text-gray-700 dark:text-white">
                                                     <span class="mr-2">{{ account.description }}</span>
-                                                </p> 
-                                                
+                                                </p>
+
                                             </div>
-                                            <p class="mt-1 text-ellipsis text-xs leading-5 text-gray-500 dark:text-gray-300">{{ account.account_number }} &bullet; {{ account.type }}</p>
+                                            <p class="mt-1 text-ellipsis text-xs leading-5 text-gray-500 dark:text-gray-300">
+                                                {{ account.account_number }} &bullet; {{ account.type }}</p>
                                         </div>
-                                        
-                                        <!-- <div class="flex items-center text-gray-200 group-hover:text-gray-400 transition-all ease-linear">
-                                            <p class="text-sm leading-6 text-gray-900">{{ account.type }}</p>
-                                        </div> -->
                                     </div>
                                 </li>
                             </ul>
@@ -64,7 +65,8 @@
                                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ account.description }}</th>
                                             <td class="px-6 py-4">{{ account.type }}</td>
-                                            <td class="px-6 py-4"><a href="#" @click="handleShowAccountModal(account.id)"
+                                            <td class="px-6 py-4"><a href="#"
+                                                    @click="handleShowAccountModal(account.id)"
                                                     class="font-medium text-green-600 dark:text-green-500 hover:underline">Edit</a>
                                             </td>
                                         </tr>
@@ -75,7 +77,7 @@
 
                             <BaseModal title="Update Account" v-if="showModal" @close-modal="toggleModal()">
                                 <div class="h-8" v-if="selectedAccount == null"></div> <!-- Filler for loding icon -->
-                                <ChartOfAccountForm v-else :account="selectedAccount" @save="handleUpdateAccount"/>
+                                <ChartOfAccountForm v-else :account="selectedAccount" @save="handleUpdateAccount" />
                             </BaseModal>
                         </div>
                     </div>
@@ -83,13 +85,14 @@
 
 
 
-                <div  v-if="accounts.length !== 0" class="mt-4">
+                <div v-if="accounts.length !== 0" class="mt-4">
                     <div class="flex items-center justify-between mt-auto">
                         <div class="flex flex-1 justify-between md:hidden">
                             <div>
                                 <BaseButton name="Download List" @click="downloadAccountList(filterParam)" />
                             </div>
-                            <TailwindPagination :data="accounts" @pagination-change-page="getAccounts" class="shadow-none" :limit="-1"
+                            <TailwindPagination :data="accounts" @pagination-change-page="getAccounts"
+                                class="shadow-none" :limit="-1"
                                 :item-classes="['flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white']"
                                 :active-classes="['']" />
                         </div>
@@ -106,8 +109,7 @@
                             </div>
                             <div>
 
-                                <TailwindPagination :data="accounts" @pagination-change-page="getAccounts"
-                                    :limit="2"
+                                <TailwindPagination :data="accounts" @pagination-change-page="getAccounts" :limit="2"
                                     :item-classes="['leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white']"
                                     :active-classes="['text-green-600 border border-gray-300 bg-green-50 hover:bg-green-100 hover:text-green-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white']" />
                             </div>
@@ -133,12 +135,17 @@ const systemStore = useSystemStore()
 const filterParam = ref('')
 const currentPage = ref(1)
 
-const { accounts, addAccount, updateAccount, selectedAccount, fetchAccounts, fetchAccount, diselectAccount, downloadAccountList } = useChartOfAccounts()
+const {
+    accounts,
+    selectedAccount,
+    fetchAccounts,
+    fetchAccount,
+    downloadAccountList
+} = useChartOfAccounts()
 
 const getAccounts = async (page = 1) => {
     currentPage.value = page;
     filterParam.value = await fetchAccounts(`${filterParam.value ? filterParam.value : ''}`, currentPage.value)
-    // console.log('Filter:', `${filterParam.value ? filterParam.value + '&' : ''}page=${currentPage.value}`)
 }
 
 const account = ref({
@@ -152,7 +159,7 @@ const showCreateModal = ref(false);
 
 const toggleModal = () => {
     showModal.value = !showModal.value
-    if(!showModal.value) {
+    if (!showModal.value) {
         systemStore.reset()
     }
 }
@@ -160,13 +167,12 @@ const toggleModal = () => {
 const toggleCreateModal = () => {
     showCreateModal.value = !showCreateModal.value
 
-    if(!showCreateModal.value) {
+    if (!showCreateModal.value) {
         systemStore.reset()
     }
 }
 
 const handleAddAccountModal = async () => {
-    // await addAccount(account)
     filterParam.value = ''
     getAccounts()
     account.value.account_number = ''
@@ -182,13 +188,12 @@ const handleShowAccountModal = (id) => {
 }
 
 const handleUpdateAccount = async (newAccount) => {
-    const index = await accounts.value.data.findIndex(obj => obj.id === newAccount.id);
-    if(index !== -1) {
-        accounts.value.data[index] = newAccount
-        toggleModal()
-    } else {
-        getAccounts
-    }
-}
-
+        const index = await accounts.value.data.findIndex(obj => obj.id === newAccount.id);
+        if (index !== -1) {
+            accounts.value.data[index] = newAccount
+            toggleModal()
+        } else {
+            getAccounts
+        }
+    } 
 </script>
