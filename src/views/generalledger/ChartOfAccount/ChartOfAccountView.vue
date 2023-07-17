@@ -15,7 +15,7 @@
                             <ChartOfAccountForm :account="account" @save="handleAddAccountModal" />
                         </BaseModal>
 
-                        <BaseButton name="Import" />
+                        <!-- <BaseButton name="Import" /> -->
                     </div>
                 </div>
 
